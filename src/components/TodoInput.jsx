@@ -1,14 +1,17 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTodo } from "../store/actions/TodoActions";
+import { incrementCounter } from "../store/actions/CounterActions";
 
 const TodoInput= () => {
   const dispatch = useDispatch();
+  const {count} = useSelector((state) => state.counter)
   const [inputValue, setInputValue] = useState("");
 
   const onClickAddTodo = () => {
     if (inputValue.length <= 0) { return }
     dispatch(addTodo(inputValue));
+    dispatch(incrementCounter(inputValue.length, count))
     setInputValue("");
   }
 
